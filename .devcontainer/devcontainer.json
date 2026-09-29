@@ -1,0 +1,16 @@
+{
+  "name": "Frituur VTI — oefeningen",
+  "image": "mcr.microsoft.com/devcontainers/php:8.4",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": { "version": "24" }
+  },
+  "postCreateCommand": "bash .devcontainer/setup.sh",
+  "forwardPorts": [8000],
+  "portsAttributes": { "8000": { "label": "Frituur VTI", "onAutoForward": "openBrowser" } },
+  "customizations": {
+    "vscode": {
+      "extensions": ["bmewburn.vscode-intelephense-client", "bradlc.vscode-tailwindcss"],
+      "settings": { "terminal.integrated.defaultProfile.linux": "bash" }
+    }
+  }
+}

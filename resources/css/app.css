@@ -1,0 +1,280 @@
+@import 'tailwindcss';
+
+@import 'tw-animate-css';
+
+@source '../views';
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Huisstijl Frituur VTI (lat: MR Food).
+ * Warm bijna-zwart, gebroken wit, één flat accent (oranje-rood), scherpe hoeken,
+ * geen schaduwen, geen gradients. Koppen in Archivo 800, lopende tekst DM Sans.
+ * Eén thema: :root en .dark dragen dezelfde waarden (zie 02-architect A-7).
+ */
+@theme {
+    --font-sans:
+        'DM Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
+        'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-display:
+        'Archivo', 'Arial Black', Impact, ui-sans-serif, system-ui, sans-serif;
+
+    /* Scherpe hoeken: alles 4px, ook de shadcn-varianten. */
+    --radius-sm: var(--radius);
+    --radius-md: var(--radius);
+    --radius-lg: var(--radius);
+    --radius-xl: var(--radius);
+    --radius-2xl: var(--radius);
+
+    /* Geen schaduwen (flat). shadcn gebruikt shadow-xs/sm/md/lg. */
+    --shadow-2xs: 0 0 #0000;
+    --shadow-xs: 0 0 #0000;
+    --shadow-sm: 0 0 #0000;
+    --shadow-md: 0 0 #0000;
+    --shadow-lg: 0 0 #0000;
+
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+
+    --color-card: var(--card);
+    --color-card-foreground: var(--card-foreground);
+
+    --color-popover: var(--popover);
+    --color-popover-foreground: var(--popover-foreground);
+
+    --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-primary-hover: var(--primary-hover);
+
+    --color-secondary: var(--secondary);
+    --color-secondary-foreground: var(--secondary-foreground);
+
+    --color-muted: var(--muted);
+    --color-muted-foreground: var(--muted-foreground);
+
+    --color-accent: var(--accent);
+    --color-accent-foreground: var(--accent-foreground);
+
+    --color-destructive: var(--destructive);
+    --color-destructive-foreground: var(--destructive-foreground);
+
+    --color-border: var(--border);
+    --color-input: var(--input);
+    --color-ring: var(--ring);
+
+    /* Statussen van een bestelling. */
+    --color-status-new: var(--status-new);
+    --color-status-busy: var(--status-busy);
+    --color-status-ready: var(--status-ready);
+    --color-status-done: var(--status-done);
+    --color-status-ink: var(--status-ink);
+
+    --color-chart-1: var(--chart-1);
+    --color-chart-2: var(--chart-2);
+    --color-chart-3: var(--chart-3);
+    --color-chart-4: var(--chart-4);
+    --color-chart-5: var(--chart-5);
+
+    --color-sidebar: var(--sidebar);
+    --color-sidebar-foreground: var(--sidebar-foreground);
+    --color-sidebar-primary: var(--sidebar-primary);
+    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+    --color-sidebar-accent: var(--sidebar-accent);
+    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+    --color-sidebar-border: var(--sidebar-border);
+    --color-sidebar-ring: var(--sidebar-ring);
+
+    /* Beweging: subtiel, kort. Altijd via motion-safe: gebruiken. */
+    --animate-fade-up: fade-up 0.35s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    --animate-fade-in: fade-in 0.25s ease-out both;
+    --animate-slide-up: slide-up 0.3s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    --animate-flash: flash 1.2s ease-out 2;
+    --animate-pulse-ring: pulse-ring 1.6s ease-out infinite;
+
+    @keyframes fade-up {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    @keyframes fade-in {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    @keyframes slide-up {
+        from {
+            transform: translateY(100%);
+        }
+        to {
+            transform: translateY(0);
+        }
+    }
+    @keyframes flash {
+        0% {
+            background-color: var(--primary);
+            color: var(--primary-foreground);
+        }
+        100% {
+            background-color: var(--card);
+            color: var(--card-foreground);
+        }
+    }
+    @keyframes pulse-ring {
+        0% {
+            box-shadow: 0 0 0 0
+                color-mix(in srgb, var(--primary) 70%, transparent);
+        }
+        100% {
+            box-shadow: 0 0 0 12px
+                color-mix(in srgb, var(--primary) 0%, transparent);
+        }
+    }
+}
+
+:root,
+.dark {
+    --background: #161412;
+    --foreground: #f4efe8;
+    --card: #201c18;
+    --card-foreground: #f4efe8;
+    --popover: #201c18;
+    --popover-foreground: #f4efe8;
+    --primary: #ff5126;
+    --primary-hover: #e23d18;
+    --primary-foreground: #161210;
+    --secondary: #2a241f;
+    --secondary-foreground: #f4efe8;
+    --muted: #2a241f;
+    --muted-foreground: #a59a8c;
+    --accent: #2a241f;
+    --accent-foreground: #f4efe8;
+    --destructive: #ff5126;
+    --destructive-foreground: #161210;
+    --border: #3a332b;
+    --input: #3a332b;
+    --ring: #ff5126;
+    --radius: 4px;
+
+    --status-new: #ff5126;
+    --status-busy: #ffb020;
+    --status-ready: #3ddc84;
+    --status-done: #a59a8c;
+    --status-ink: #161210;
+
+    --chart-1: #ff5126;
+    --chart-2: #ffb020;
+    --chart-3: #3ddc84;
+    --chart-4: #a59a8c;
+    --chart-5: #f4efe8;
+
+    --sidebar: #12100e;
+    --sidebar-foreground: #f4efe8;
+    --sidebar-primary: #ff5126;
+    --sidebar-primary-foreground: #161210;
+    --sidebar-accent: #2a241f;
+    --sidebar-accent-foreground: #f4efe8;
+    --sidebar-border: #3a332b;
+    --sidebar-ring: #ff5126;
+}
+
+@layer base {
+    * {
+        @apply border-border;
+    }
+
+    html {
+        color-scheme: dark;
+        background-color: var(--background);
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+        @apply bg-background font-sans text-foreground;
+        font-size: 17px;
+        line-height: 1.5;
+        overflow-x: hidden;
+    }
+
+    h1,
+    h2,
+    h3,
+    .font-display {
+        @apply font-display font-extrabold tracking-tight;
+    }
+
+    h1 {
+        font-size: clamp(2.6rem, 6vw, 4.6rem);
+        line-height: 0.95;
+    }
+
+    h2 {
+        font-size: clamp(1.75rem, 4vw, 2.5rem);
+        line-height: 1.05;
+    }
+
+    h3 {
+        font-size: 1.25rem;
+        line-height: 1.2;
+    }
+
+    ::selection {
+        background: var(--primary);
+        color: var(--primary-foreground);
+    }
+
+    :focus-visible {
+        outline: 3px solid var(--ring);
+        outline-offset: 2px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+            scroll-behavior: auto !important;
+        }
+    }
+}
+
+/* Sonner-toasts in de huisstijl (het ui/sonner-component blijft ongewijzigd). */
+[data-sonner-toaster] [data-sonner-toast] {
+    border-radius: var(--radius);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    border: 1px solid var(--border);
+    box-shadow: none;
+}
+
+[data-sonner-toaster] [data-sonner-toast][data-type='success'] {
+    border-color: var(--status-ready);
+}
+
+[data-sonner-toaster] [data-sonner-toast][data-type='error'] {
+    border-color: var(--primary);
+}
+
+/* Horizontale categorienavigatie zonder zichtbare scrollbalk. */
+.scrollbar-none {
+    scrollbar-width: none;
+}
+
+.scrollbar-none::-webkit-scrollbar {
+    display: none;
+}
+
+/* Bestelnummer op het keukenscherm en de bevestiging. */
+.tabular {
+    font-variant-numeric: tabular-nums;
+}
