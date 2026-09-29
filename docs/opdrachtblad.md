@@ -123,7 +123,8 @@ git switch bug/1-totaalprijs
 php artisan test --filter=OrderTotalTest
 ```
 
-Je ziet één rode test. Lees de boodschap goed: ze zegt wat ze **verwachtte** en wat ze **kreeg**.
+Je ziet een paar rode tests. Ze gaan allemaal over dezelfde fout: begin met de eerste. Lees de boodschap goed: ze
+zegt wat ze **verwachtte** en wat ze **kreeg**.
 
 ## Bug 1: het totaal klopt niet (makkelijk)
 
@@ -142,11 +143,13 @@ git switch bug/2-prijssnapshot
 php artisan test --filter=OrderTotalTest
 ```
 
-- De rode test heet `test_een_prijswijziging_verandert_een_bestaande_bestelling_niet`. Lees het scenario in de test:
+- Twee rode tests. Begin met `test_een_prijswijziging_verandert_een_bestaande_bestelling_niet`. Lees het scenario in de test:
   iemand bestelt, daarna verandert de baas de prijs. Wat mag er dan **niet** gebeuren?
 - Het bedrag wordt correct opgeslagen in de databank (controleer dat in de test: welke asserts slagen wel?).
   Het probleem zit dus ergens tussen de databank en het antwoord van de API. Waar wordt het JSON-antwoord van een
   bestelling gemaakt? Tip: map `app/Http/Resources/Api`.
+- De tweede rode test geeft zelfs een 500-fout: wat gebeurt er als het product intussen verwijderd is? Dezelfde
+  oorzaak.
 - Herstel, test opnieuw, en leg in één zin uit aan je buur waarom een webshop de prijs kopieert op het moment van
   bestellen in plaats van ze telkens opnieuw op te zoeken.
 
