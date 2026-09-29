@@ -2,6 +2,9 @@
 
 Werk per twee. Deel 1 doe je tegen de live site, deel 2 in je eigen Codespace.
 
+**Tip:** plak elke regel uit een grijs codeblok apart in de terminal en druk op Enter. Twee regels tegelijk plakken
+werkt niet.
+
 # Deel 1: praat met de API
 
 Je kent C#. Dan ken je HTTP-verzoeken misschien al van `HttpClient`. Hier doe je hetzelfde met **curl**, een

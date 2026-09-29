@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # Draait één keer bij het aanmaken van de Codespace. Duurt ± 3 minuten.
 set -euo pipefail
+# Xdebug uit: anders bij elk commando 'Could not connect to debugging client'.
+echo 'xdebug.mode=off' | sudo tee /usr/local/etc/php/conf.d/zz-xdebug-off.ini >/dev/null || true
 composer install --no-interaction --prefer-dist --quiet
 npm install --silent
 [ -f .env ] || cp .env.example .env
