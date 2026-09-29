@@ -71,7 +71,7 @@ class PlaceOrder
             foreach ($lines as $line) {
                 /** @var Product $product */
                 $product = $products->get($line['product_id']);
-                $lineTotal = $product->price_cents * $line['quantity'];
+                $lineTotal = $product->price_cents;
                 $total += $lineTotal;
 
                 $rows[] = [
