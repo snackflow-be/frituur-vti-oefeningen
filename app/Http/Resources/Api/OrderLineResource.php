@@ -23,8 +23,8 @@ class OrderLineResource extends JsonResource
             'product_id' => $this->product_id,
             'product_name' => $this->product_name,
             'quantity' => $this->quantity,
-            'unit_price_cents' => $this->unit_price_cents,
-            'unit_price' => Money::format($this->unit_price_cents),
+            'unit_price_cents' => $this->product->price_cents,
+            'unit_price' => Money::format($this->product->price_cents),
             'line_total_cents' => $this->line_total_cents,
             'line_total' => Money::format($this->line_total_cents),
         ];
