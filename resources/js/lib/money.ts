@@ -17,10 +17,7 @@ export function formatCents(cents: number): string {
  * "3,50" of "3.50" → 350; ongeldig → null. Spiegel van Money::parseEuro (PHP).
  */
 export function parseEuro(input: string): number | null {
-    const cleaned = input
-        .trim()
-        .replace(/\s|€/g, '')
-        .replace(',', '.');
+    const cleaned = input.trim().replace(/\s|€/g, '').replace(',', '.');
 
     if (!/^\d+(\.\d{1,2})?$/.test(cleaned)) {
         return null;
