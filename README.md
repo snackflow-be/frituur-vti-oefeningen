@@ -3,8 +3,12 @@
 Dit is de code van een echte webapp: online bestellen voor een frituur, gebouwd tijdens de gastles op campus VTI
 Waregem. Live versie: **https://frituurvti.staging.snackflow.be** (fictieve klant, bestel gerust).
 
-**Ga naar [docs/opdrachtblad.md](docs/opdrachtblad.md) voor de opdrachten.** Snelste start: knop **Code → Codespaces →
-Create codespace on main** bovenaan deze pagina. Na ± 3 minuten heb je een werkende omgeving in je browser.
+## 👉 Workshop: [Hack de frituur](docs/hack-de-frituur.md)
+
+Alles gebeurt in je browser, je hoeft niets te installeren.
+
+Meer willen? In [docs/opdrachtblad.md](docs/opdrachtblad.md) staan extra oefeningen met de code zelf: zoek twee
+verstopte bugs in een Codespace (knop **Code → Codespaces → Create codespace on main** bovenaan deze pagina).
 
 ---
 
