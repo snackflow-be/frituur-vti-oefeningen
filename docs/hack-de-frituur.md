@@ -14,6 +14,28 @@ Werk **per twee**. Elk level geeft punten. Het duo met de meeste punten wint.
 >   `0470 00 00 42`. Verander de laatste twee cijfers, zo heeft elk duo een eigen nummer.
 > - Het keukenscherm hangt op de beamer. Wat je als naam stuurt, ziet de hele klas.
 
+> **Nog nooit gehackt of gedebugd? Perfect.** Je hoeft niets te kunnen programmeren. Elk level is
+> **kopiëren, plakken, één ding veranderen en kijken wat er terugkomt**. Klaarzetten, level 1 en level 2
+> doen we eerst **samen** op de beamer.
+
+### Zo lees je een antwoord
+
+Na elke opdracht toont de console twee dingen: een **getal** en een **antwoord**. Klik op het pijltje ▶ om het
+antwoord open te klappen.
+
+| Getal | Betekent | Wat nu? |
+|---|---|---|
+| `201` | Gelukt, bestelling aangemaakt | Kijk naar de beamer! |
+| `200` | Gelukt, hier is wat je vroeg | |
+| `422` | Je gegevens kloppen niet | Klap open: bij `errors` staat wat er mis is |
+| `404` | Bestaat niet | |
+| `429` | Te veel na elkaar | Wacht een minuut |
+| `500` | De server crasht | Een echte bug! Steek je hand op |
+
+Rode tekst in de console is **niet erg**: zo zie je wat de server niet goedkeurt. Daar gaat het juist om.
+
+Iets fout getypt? Druk op **pijltje omhoog** in de console: je vorige opdracht komt terug, en die kun je aanpassen.
+
 ## Klaarzetten (2 min)
 
 1. Open de site op je laptop (Chrome, Edge of Firefox).
@@ -94,7 +116,17 @@ await bestel({
 ## Level 4: breek de controle (1 punt per verschillende foutmelding, max 10)
 
 De server controleert alles wat binnenkomt. Probeer zoveel mogelijk **verschillende foutmeldingen** te krijgen.
-Verander telkens één ding in je bestelling. Ideeën:
+Verander telkens één ding in je bestelling. De eerste twee krijg je cadeau:
+
+```js
+// aantal 0
+await bestel({ customer_name: 'Jens', customer_phone: '0470 00 00 42', lines: [ { product_id: 3, quantity: 0 } ] });
+
+// leeg mandje
+await bestel({ customer_name: 'Jens', customer_phone: '0470 00 00 42', lines: [] });
+```
+
+Druk op **pijltje omhoog**, verander één ding, Enter. Nog meer ideeën:
 
 - een negatief aantal, of 0, of heel veel
 - een kommagetal als aantal, of tekst
@@ -123,6 +155,8 @@ Elke bestelling krijgt een geheime `token`. Daarmee kun je ze opvolgen:
 ```js
 await volg(mijn.order.token);
 ```
+
+(Foutmelding `mijn is not defined`? Je hebt de pagina herladen. Plak de helpers opnieuw en doe level 2 nog eens.)
 
 - Vraag nu de bestelling van je **buren** op. Je kent hun bestelnummer (bv. `VTI-012`). Lukt `volg('VTI-012')`?
 - Waarom gebruikt de frituur zo'n lange willekeurige token en niet gewoon het bestelnummer?
