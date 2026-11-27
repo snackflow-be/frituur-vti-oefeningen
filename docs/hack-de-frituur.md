@@ -40,8 +40,9 @@ Iets fout getypt? Druk op **pijltje omhoog** in de console: je vorige opdracht k
 
 1. Open de site op je laptop (Chrome, Edge of Firefox).
 2. Druk op **F12** en klik op het tabblad **Console**.
-3. Typ eerst `allow pasting` en druk op Enter. De browser blokkeert plakken in de console standaard, om je te
-   beschermen tegen oplichters. Hier mag het.
+3. Plak het blok hieronder. Zegt de browser dat plakken geblokkeerd is? Typ dan `allow pasting`, druk op Enter
+   en plak opnieuw. De browser doet dat om je te beschermen tegen oplichters, hier mag het. (Rode fout
+   `SyntaxError` na `allow pasting`? Dan was het niet nodig: gewoon verder.)
 4. Plak dit blok in de console en druk op Enter. Het maakt twee hulpfuncties: `bestel(...)` en `volg(...)`.
 
 ```js
