@@ -7,6 +7,7 @@ de knoppen van de site, en proberen hem te foppen.
 Werk **per twee**. Elk level geeft punten. Het duo met de meeste punten wint.
 
 > **Spelregels**
+>
 > - Alleen deze site, alleen de opdrachten hieronder.
 > - **Geen lussen** (`for`, `while`) die bestellingen spammen: de hele klas zit op één wifi, dus als jij spamt,
 >   kan niemand nog bestellen.
@@ -23,14 +24,14 @@ Werk **per twee**. Elk level geeft punten. Het duo met de meeste punten wint.
 Na elke opdracht toont de console twee dingen: een **getal** en een **antwoord**. Klik op het pijltje ▶ om het
 antwoord open te klappen.
 
-| Getal | Betekent | Wat nu? |
-|---|---|---|
-| `201` | Gelukt, bestelling aangemaakt | Kijk naar de beamer! |
-| `200` | Gelukt, hier is wat je vroeg | |
-| `422` | Je gegevens kloppen niet | Klap open: bij `errors` staat wat er mis is |
-| `404` | Bestaat niet | |
-| `429` | Te veel na elkaar | Wacht een minuut |
-| `500` | De server crasht | Een echte bug! Steek je hand op |
+| Getal | Betekent                      | Wat nu?                                     |
+| ----- | ----------------------------- | ------------------------------------------- |
+| `201` | Gelukt, bestelling aangemaakt | Kijk naar de beamer!                        |
+| `200` | Gelukt, hier is wat je vroeg  |                                             |
+| `422` | Je gegevens kloppen niet      | Klap open: bij `errors` staat wat er mis is |
+| `404` | Bestaat niet                  |                                             |
+| `429` | Te veel na elkaar             | Wacht een minuut                            |
+| `500` | De server crasht              | Een echte bug! Steek je hand op             |
 
 Rode tekst in de console is **niet erg**: zo zie je wat de server niet goedkeurt. Daar gaat het juist om.
 
@@ -46,21 +47,21 @@ Iets fout getypt? Druk op **pijltje omhoog** in de console: je vorige opdracht k
 
 ```js
 async function bestel(data) {
-  const r = await fetch('/api/orders', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-    body: JSON.stringify(data),
-  });
-  const json = await r.json();
-  console.log(r.status, json);
-  return json;
+    const r = await fetch("/api/orders", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify(data),
+    });
+    const json = await r.json();
+    console.log(r.status, json);
+    return json;
 }
 
 async function volg(token) {
-  const r = await fetch('/api/orders/' + token, { headers: { 'Accept': 'application/json' } });
-  const json = await r.json();
-  console.log(r.status, json);
-  return json;
+    const r = await fetch("/api/orders/" + token, { headers: { Accept: "application/json" } });
+    const json = await r.json();
+    console.log(r.status, json);
+    return json;
 }
 ```
 
@@ -73,8 +74,8 @@ Zie je `undefined`? Dan is het gelukt.
 Vraag het menu op aan de API:
 
 ```js
-const menu = await (await fetch('/api/menu')).json();
-console.table(menu.categories.flatMap(c => c.products));
+const menu = await (await fetch("/api/menu")).json();
+console.table(menu.categories.flatMap((c) => c.products));
 ```
 
 - Hoeveel producten zijn er?
@@ -87,9 +88,9 @@ Tip: de volledige uitleg van de API staat op https://frituurvti.staging.snackflo
 
 ```js
 const mijn = await bestel({
-  customer_name: 'Jens',
-  customer_phone: '0470 00 00 42',
-  lines: [ { product_id: 7, quantity: 1 } ],
+    customer_name: "Jens",
+    customer_phone: "0470 00 00 42",
+    lines: [{ product_id: 7, quantity: 1 }],
 });
 ```
 
@@ -103,10 +104,10 @@ Je bent slim. Je stuurt gewoon zelf een prijs mee:
 
 ```js
 await bestel({
-  customer_name: 'Jens',
-  customer_phone: '0470 00 00 42',
-  total_cents: 1,
-  lines: [ { product_id: 3, quantity: 2, price_cents: 1 } ],
+    customer_name: "Jens",
+    customer_phone: "0470 00 00 42",
+    total_cents: 1,
+    lines: [{ product_id: 3, quantity: 2, price_cents: 1 }],
 });
 ```
 
@@ -120,10 +121,14 @@ Verander telkens één ding in je bestelling. De eerste twee krijg je cadeau:
 
 ```js
 // aantal 0
-await bestel({ customer_name: 'Jens', customer_phone: '0470 00 00 42', lines: [ { product_id: 3, quantity: 0 } ] });
+await bestel({
+    customer_name: "Jens",
+    customer_phone: "0470 00 00 42",
+    lines: [{ product_id: 3, quantity: 0 }],
+});
 
 // leeg mandje
-await bestel({ customer_name: 'Jens', customer_phone: '0470 00 00 42', lines: [] });
+await bestel({ customer_name: "Jens", customer_phone: "0470 00 00 42", lines: [] });
 ```
 
 Druk op **pijltje omhoog**, verander één ding, Enter. Nog meer ideeën:
@@ -274,17 +279,17 @@ Basis-URL lokaal: `http://localhost:8000`. JSON, bedragen in centen (`*_cents`) 
 meldingen in het Nederlands. De volledige beschrijving met voorbeeldantwoorden staat op `/api/docs`.
 Bestellen: maximum 60 per minuut per IP en 3 per minuut per gsm-nummer (429 met `Retry-After`).
 
-| Methode | Pad | Wie | Doet | Voorbeeld |
-|---|---|---|---|---|
-| GET | `/api/menu` | iedereen | Menu, zaakgegevens, open of dicht | `curl -s localhost:8000/api/menu -H 'Accept: application/json'` |
-| POST | `/api/orders` | iedereen | Bestelling plaatsen (201, of 422/429) | `curl -s -X POST localhost:8000/api/orders -H 'Content-Type: application/json' -H 'Accept: application/json' -d '{"customer_name":"Jef","customer_phone":"0470 12 34 56","lines":[{"product_id":3,"quantity":2}]}'` |
-| GET | `/api/orders/{token}` | wie de token heeft | Bestelling volgen (de token staat in het antwoord van het plaatsen) | `curl -s localhost:8000/api/orders/VOORBEELD-TOKEN -H 'Accept: application/json'` |
-| GET | `/api/docs` | iedereen | Deze documentatie als pagina | `curl -s localhost:8000/api/docs` |
-| GET | `/keuken/bestellingen` | personeel | Open bestellingen van vandaag | `curl -s localhost:8000/keuken/bestellingen -b cookies.txt -H 'Accept: application/json'` |
-| PATCH | `/keuken/bestellingen/{id}/status` | personeel | Volgende stap (nieuw, bezig, klaar, afgehaald) | `curl -s -X PATCH localhost:8000/keuken/bestellingen/1/status -b cookies.txt -H 'Content-Type: application/json' -H 'Accept: application/json' -H "X-XSRF-TOKEN: $XSRF" -d '{"status":"bezig"}'` |
-| GET | `/keuken/producten` | personeel | Alle producten met uitverkocht-vlag | `curl -s localhost:8000/keuken/producten -b cookies.txt -H 'Accept: application/json'` |
-| PATCH | `/keuken/producten/{id}/uitverkocht` | personeel | Product uitverkocht aan of uit | `curl -s -X PATCH localhost:8000/keuken/producten/3/uitverkocht -b cookies.txt -H 'Content-Type: application/json' -H 'Accept: application/json' -H "X-XSRF-TOKEN: $XSRF" -d '{"is_sold_out":true}'` |
-| PATCH | `/keuken/bestellen` | personeel | Bestellen open of dicht (sluiten vraagt een boodschap) | `curl -s -X PATCH localhost:8000/keuken/bestellen -b cookies.txt -H 'Content-Type: application/json' -H 'Accept: application/json' -H "X-XSRF-TOKEN: $XSRF" -d '{"is_open":false,"closed_message":"Vandaag gesloten"}'` |
+| Methode | Pad                                  | Wie                | Doet                                                                | Voorbeeld                                                                                                                                                                                                               |
+| ------- | ------------------------------------ | ------------------ | ------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| GET     | `/api/menu`                          | iedereen           | Menu, zaakgegevens, open of dicht                                   | `curl -s localhost:8000/api/menu -H 'Accept: application/json'`                                                                                                                                                         |
+| POST    | `/api/orders`                        | iedereen           | Bestelling plaatsen (201, of 422/429)                               | `curl -s -X POST localhost:8000/api/orders -H 'Content-Type: application/json' -H 'Accept: application/json' -d '{"customer_name":"Jef","customer_phone":"0470 12 34 56","lines":[{"product_id":3,"quantity":2}]}'`     |
+| GET     | `/api/orders/{token}`                | wie de token heeft | Bestelling volgen (de token staat in het antwoord van het plaatsen) | `curl -s localhost:8000/api/orders/VOORBEELD-TOKEN -H 'Accept: application/json'`                                                                                                                                       |
+| GET     | `/api/docs`                          | iedereen           | Deze documentatie als pagina                                        | `curl -s localhost:8000/api/docs`                                                                                                                                                                                       |
+| GET     | `/keuken/bestellingen`               | personeel          | Open bestellingen van vandaag                                       | `curl -s localhost:8000/keuken/bestellingen -b cookies.txt -H 'Accept: application/json'`                                                                                                                               |
+| PATCH   | `/keuken/bestellingen/{id}/status`   | personeel          | Volgende stap (nieuw, bezig, klaar, afgehaald)                      | `curl -s -X PATCH localhost:8000/keuken/bestellingen/1/status -b cookies.txt -H 'Content-Type: application/json' -H 'Accept: application/json' -H "X-XSRF-TOKEN: $XSRF" -d '{"status":"bezig"}'`                        |
+| GET     | `/keuken/producten`                  | personeel          | Alle producten met uitverkocht-vlag                                 | `curl -s localhost:8000/keuken/producten -b cookies.txt -H 'Accept: application/json'`                                                                                                                                  |
+| PATCH   | `/keuken/producten/{id}/uitverkocht` | personeel          | Product uitverkocht aan of uit                                      | `curl -s -X PATCH localhost:8000/keuken/producten/3/uitverkocht -b cookies.txt -H 'Content-Type: application/json' -H 'Accept: application/json' -H "X-XSRF-TOKEN: $XSRF" -d '{"is_sold_out":true}'`                    |
+| PATCH   | `/keuken/bestellen`                  | personeel          | Bestellen open of dicht (sluiten vraagt een boodschap)              | `curl -s -X PATCH localhost:8000/keuken/bestellen -b cookies.txt -H 'Content-Type: application/json' -H 'Accept: application/json' -H "X-XSRF-TOKEN: $XSRF" -d '{"is_open":false,"closed_message":"Vandaag gesloten"}'` |
 
 De personeelsroutes hebben een sessie nodig: eerst inloggen op `/login` in de browser, of met curl een cookiebestand
 (`-c cookies.txt`) aanmaken en de waarde van de cookie `XSRF-TOKEN` (URL-gedecodeerd) als `$XSRF` meegeven. Zonder
